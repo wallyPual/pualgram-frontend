@@ -10,6 +10,7 @@ export default defaultValue => {
   };
   return {
     value,
+    setValue,
     onChange
   };
 };

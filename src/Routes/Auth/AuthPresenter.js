@@ -1,4 +1,5 @@
 import React, { Fragment } from "react";
+import Helmet from "react-helmet";
 import styled from "styled-components";
 import Input from "../../Components/Input";
 import Button from "../../Components/Button";
@@ -64,39 +65,65 @@ export default ({
   firstName,
   lastName,
   setAction,
-  onLogin
+  onSubmit,
+  secret
 }) => (
   <Wrapper>
     <Form>
-      {action === "logIn" ? (
-        <form onSubmit={onLogin}>
-          <Logo text="Pualgram" />
-          <Input placeholder="이메일" {...email} />
-          <Button text={"로그인"} />
-        </form>
-      ) : (
-        <form onSubmit={onLogin}>
-          <Logo text="Pualgram" />
-          <Input placeholder="이름" {...firstName} />
-          <Input placeholder="성" {...lastName} />
-          <Input placeholder="이메일" {...email} type="email" />
-          <Input placeholder="사용자 이름" {...username} />
-          <Button text={"가입하기"} />
-        </form>
+      {action === "logIn" && (
+        <Fragment>
+          <Helmet>
+            <title>Log In | pualgram</title>
+          </Helmet>
+          <form onSubmit={onSubmit}>
+            <Logo text="Pualgram" />
+            <Input placeholder="이메일" {...email} />
+            <Button text={"로그인"} />
+          </form>
+        </Fragment>
+      )}
+      {action === "signUp" && (
+        <Fragment>
+          <Helmet>
+            <title>Sign Up | pualgram</title>
+          </Helmet>
+          <form onSubmit={onSubmit}>
+            <Logo text="Pualgram" />
+            <Input placeholder="이름" {...firstName} />
+            <Input placeholder="성" {...lastName} />
+            <Input placeholder="이메일" {...email} type="email" />
+            <Input placeholder="사용자 이름" {...username} />
+            <Button text={"가입하기"} />
+          </form>
+        </Fragment>
+      )}
+      {action === "confirm" && (
+        <Fragment>
+          <Helmet>
+            <title>Log In | pualgram</title>
+          </Helmet>
+          <form onSubmit={onSubmit}>
+            <Input placeholder="Paste your secret" required {...secret} />
+            <Button text={"Confirm"} />
+          </form>
+        </Fragment>
       )}
     </Form>
-    <StateChanger>
-      {action === "logIn" ? (
-        <Fragment>
-          계정이 없으신가요?
-          <Link onClick={() => setAction("signUp")}>가입하기</Link>
-        </Fragment>
-      ) : (
-        <Fragment>
-          계정이 있으신가요?
-          <Link onClick={() => setAction("logIn")}>로그인</Link>
-        </Fragment>
-      )}
-    </StateChanger>
+
+    {action !== "confirm" && (
+      <StateChanger>
+        {action === "logIn" ? (
+          <Fragment>
+            계정이 없으신가요?
+            <Link onClick={() => setAction("signUp")}>가입하기</Link>
+          </Fragment>
+        ) : (
+          <Fragment>
+            계정이 있으신가요?
+            <Link onClick={() => setAction("logIn")}>로그인</Link>
+          </Fragment>
+        )}
+      </StateChanger>
+    )}
   </Wrapper>
 );

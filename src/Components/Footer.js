@@ -5,6 +5,9 @@ const Footer = styled.footer`
     display: flex;
     align-items: center;
     justify-content: space-between;
+    font-weight: 600;
+    font-size: 12px;
+    margin: 50px 0;
 `;
 
 const List = styled.ul`
